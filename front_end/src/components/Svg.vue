@@ -47,7 +47,7 @@ export default {
     return {
       table_display: false,
       search_keys: "",
-      search_num: 20,
+      search_num: 10,
       img_urls: [],
       svg_list: [],
     };
@@ -60,7 +60,7 @@ export default {
         url: "/search",
         params: {
           keyWords: this.search_keys,
-          imgNum: this.search_num,
+          imgNum: this.search_num * 3,
         },
       }).then((res) => {
         console.log(res.data);
@@ -123,7 +123,9 @@ export default {
         );
         svg_obj.path_list.push("M" + it);
       });
-      this.svg_list.push(svg_obj);
+      if (svg_obj.path_list.length < 10 && this.svg_list.length < this.search_num) {
+        this.svg_list.push(svg_obj);
+      }
     },
   },
 };
