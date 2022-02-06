@@ -36,6 +36,12 @@
         </ul>
       </div>
     </div>
+    <div v-if="false">
+      <el-divider></el-divider>
+      <h2>Test Server</h2>
+      <el-button @click="testServer">Test Server</el-button>
+      <p>{{ server_response }}</p>
+    </div>
   </div>
 </template>
 
@@ -50,9 +56,19 @@ export default {
       search_num: 10,
       img_urls: [],
       svg_list: [],
+      server_response: "",
     };
   },
   methods: {
+    testServer() {
+      this.$axios({
+        method: "post",
+        url: "/testServer",
+      }).then((res) => {
+        console.log(res.data);
+        this.server_response = res.data;
+      });
+    },
     searchImg() {
       console.log(this.search_keys);
       this.$axios({
@@ -82,7 +98,7 @@ export default {
             throw err;
           }
           let res_svg = trace.getSVG();
-          // console.log(res_svg);
+          console.log(res_svg);
           this.separateSvgComponents(res_svg);
         });
       });
@@ -123,7 +139,10 @@ export default {
         );
         svg_obj.path_list.push("M" + it);
       });
-      if (svg_obj.path_list.length < 10 && this.svg_list.length < this.search_num) {
+      if (
+        svg_obj.path_list.length < 10 &&
+        this.svg_list.length < this.search_num
+      ) {
         this.svg_list.push(svg_obj);
       }
     },

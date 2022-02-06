@@ -12,7 +12,8 @@ Vue.config.productionTip = false
 Vue.use(ElementUI, {locale})
 
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios.defaults.baseURL = 'http://47.102.211.179/';
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 new Vue({
